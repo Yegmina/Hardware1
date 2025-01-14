@@ -15,17 +15,19 @@ def create_folder(folder_name):
 def get_date_today():
     from datetime import date
 
-    today = date.today()
-    today = str(today)
-    today = today.split("-")
-    return today
+    local_today = date.today()
+    local_today = str(local_today)
+    local_today = local_today.split("-")
+    return local_today
 
 
 def split_date(date):
-    year = date[0]
-    month = date[1]
-    day = date[2]
-    return year, month, day
+    local_year = date[0]
+    local_month = date[1]
+    local_day = date[2]
+    return local_year, local_month, local_day
+
+
 
 today = get_date_today()
 year, month, day = split_date(today)
@@ -33,7 +35,6 @@ year, month, day = split_date(today)
 structure=str(read_input("structure")[0])
 
 fstructure="f'"+structure+"'"
-
 
 symbol="C" # hardcoded for class work
 
