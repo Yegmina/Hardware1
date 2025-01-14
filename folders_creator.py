@@ -5,15 +5,30 @@ def read_input(name):
     content = file.read()
     return content.split("\n")
 
-from datetime import date
+def create_folder(folder_name):
+    if not os.path.exists(folder_name):
+        os.makedirs(folder_name)
+        print(f"Folder '{folder_name}' created successfully!")
+    else:
+        print(f"Folder '{folder_name}' already exists.")
 
-today = date.today()
-today=str(today)
-today=today.split("-")
-year=today[0]
-month=today[1]
-day=today[2]
+def get_date_today():
+    from datetime import date
 
+    today = date.today()
+    today = str(today)
+    today = today.split("-")
+    return today
+
+
+def split_date(date):
+    year = date[0]
+    month = date[1]
+    day = date[2]
+    return year, month, day
+
+today = get_date_today()
+year, month, day = split_date(today)
 
 structure=str(read_input("structure")[0])
 
@@ -25,9 +40,6 @@ symbol="C" # hardcoded for class work
 print(eval(fstructure))
 
 folder_name=eval(fstructure)
-if not os.path.exists(folder_name):
-    os.makedirs(folder_name)
-    print(f"Folder '{folder_name}' created successfully!")
-else:
-    print(f"Folder '{folder_name}' already exists.")
+
+create_folder(folder_name)
 
