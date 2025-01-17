@@ -1,4 +1,17 @@
 import os
+import datetime # for getting today's day
+import sys
+import select
+import time #for waiting
+
+def is_valid_time_and_day():
+    now = datetime.datetime.now()
+
+    if not (8 <= now.hour < 16):
+        return False
+    if now.weekday() >= 5:
+        return False
+    return True
 
 def read_input(name):
     file = open(f"{name}.txt", "r")
@@ -14,33 +27,36 @@ def create_folder(folder_name):
 
 def get_date_today():
     from datetime import date
-
     local_today = date.today()
-    local_today = str(local_today)
-    local_today = local_today.split("-")
-    return local_today
-
+    return str(local_today).split("-")
 
 def split_date(date):
-    local_year = date[0]
-    local_month = date[1]
-    local_day = date[2]
-    return local_year, local_month, local_day
+    return date[0], date[1], date[2]
 
+def main1():
+    """Create only one folder, for today"""
+    if not is_valid_time_and_day():
+        sys.exit("Script terminated: Not within allowed time or it's a weekend.")
 
+    today = get_date_today()
+    year, month, day = split_date(today)
 
-today = get_date_today()
-year, month, day = split_date(today)
+    structure = str(read_input("structure")[0])
+    fstructure = f"f'{structure}'"
 
-structure=str(read_input("structure")[0])
+    symbol = input("special symbol at the end: ")
 
-fstructure="f'"+structure+"'"
+    if symbol.strip().lower() in ["", " "]:
+        symbol = "ClassWork"  # Hardcoded for class work
+    elif symbol.lower() == "l":
+        symbol = "Linux"
+    elif symbol.lower() == "n":
+        symbol = "Network"
+    elif symbol.lower() == "h":
+        symbol="HealthTechnology"
 
-symbol="C" # hardcoded for class work
+    folder_name = eval(fstructure)
+    create_folder(folder_name)
 
-print(eval(fstructure))
-
-folder_name=eval(fstructure)
-
-create_folder(folder_name)
-
+if __name__ == "__main__":
+    main1()
